@@ -1,0 +1,19 @@
+{
+  "name": "gig",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc --watch",
+    "sass": "node-sass -w scss/ -o css/ --recursive"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "node-sass": "^8.0.0"
+  }
+}
