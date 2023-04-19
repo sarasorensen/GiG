@@ -148,6 +148,18 @@ label {
   cursor: pointer;
 }
 
+#toggle1 {
+  display: block;
+}
+
+#toggle2 {
+  display: none;
+}
+
+#toggle3 {
+  display: none;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;

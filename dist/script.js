@@ -30,7 +30,6 @@ function openEdit() {
 }
 function tab(panel) {
     const element = document.getElementById(panel);
-    const tabList = element === null || element === void 0 ? void 0 : element.querySelector('[role="tablist"]');
     const tabButtonList = element === null || element === void 0 ? void 0 : element.querySelectorAll('[role="tab"]');
     const tabArrayList = [].slice.call(tabButtonList);
     // Initialize tabFocus
@@ -60,36 +59,11 @@ function tab(panel) {
     tabButtonList === null || tabButtonList === void 0 ? void 0 : tabButtonList.forEach((item) => {
         item.addEventListener("click", toggleTab);
     });
-    // Keydown function
-    const keydownFocus = (event) => {
-        // Detect arrow direction
-        if (event.code === "ArrowRight" || event.code === "ArrowLeft") {
-            // Reset tabindex
-            tabButtonList && tabButtonList[tabFocus].setAttribute("tabindex", "-1");
-            // Move Right
-            if (tabButtonList && event.code === "ArrowRight") {
-                tabFocus += 1;
-                // If you are at the end, go back to the start
-                if (tabFocus >= tabButtonList.length) {
-                    tabFocus = 0;
-                }
-            }
-            else if (tabButtonList && event.code === "ArrowLeft") {
-                tabFocus -= 1;
-                // If you are at the start, move to the end
-                if (tabFocus < 0) {
-                    tabFocus = tabButtonList.length - 1;
-                }
-            }
-            // Change tabindex
-            const tabFocused = tabButtonList && tabButtonList[tabFocus];
-            tabFocused && tabFocused.setAttribute("tabindex", "0");
-            tabFocused && tabFocused.focus();
-        }
-    };
-    // Tab keydown EventListener
-    tabList === null || tabList === void 0 ? void 0 : tabList.addEventListener("keydown", keydownFocus);
 }
 tab("panel");
-console.log('hello');
+function showSection(i, hideFirst, hideSecond) {
+    document.getElementById(`toggle${i}`).style.display = "block";
+    document.getElementById(`toggle${hideFirst}`).style.display = "none";
+    document.getElementById(`toggle${hideSecond}`).style.display = "none";
+}
 //# sourceMappingURL=script.js.map
