@@ -31,3 +31,9 @@
   -moz-transition: 0.3s ease-in-out 0s;
   -webkit-transition: 0.3s ease-in-out 0s;
 }
+
+@mixin flexRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

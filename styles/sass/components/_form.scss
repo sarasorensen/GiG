@@ -3,6 +3,12 @@
   padding: $space;
   margin: auto;
   max-width: 50%;
+  &[aria-hidden="true"] {
+    display: none;
+  }
+  &[aria-hidden="false"] {
+    display: block;
+  }
 }
 
 .input-group {
@@ -44,25 +50,9 @@
     }
   }
 }
-input[type="submit"] {
-  width: 25%;
-  float: right;
-  background-color: $purple;
-  color: white;
-  border-radius: 0;
-  padding: $space-s;
-  text-transform: uppercase;
-  border: none;
-  outline: none;
-  &:hover {
-    @include hover;
-    color: white;
-    text-decoration: none;
-  }
-}
+
 label {
   text-transform: initial;
-  margin-top: $space;
   color: $grey;
   margin-bottom: $space-s;
 }
@@ -78,8 +68,12 @@ label {
     background: rgba(256, 256, 256, 0.5);
     padding: 0.7em;
     margin: 0 0.1em;
-  }
-  li.active {
-    background-color: rgba(256, 256, 256, 0.95);
+
+    &[aria-selected="true"] {
+      background-color: rgba(256, 256, 256, 0.95);
+    }
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

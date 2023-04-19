@@ -18,3 +18,33 @@ ul {
 a {
   text-decoration: none;
 }
+
+.btn {
+  width: 20%;
+  background-color: $purple;
+  color: white;
+  border-radius: 15px;
+  padding: $space-s;
+  text-transform: uppercase;
+  border: none;
+  outline: none;
+  margin-right: $space-s;
+  margin-left: $space-s;
+  &__neutral {
+    background-color: transparent;
+    border: 1px solid $purple;
+    color: $purple;
+    &:hover {
+      color: $purple !important;
+    }
+  }
+  &:hover {
+    @include hover;
+    color: white;
+    text-decoration: none;
+  }
+}
+hr {
+  color: $light-purple;
+  opacity: 0.4;
+}

@@ -1,33 +1,3 @@
-function deleteContact() {
-    const loader = document.getElementById("loader");
-    const verify = document.getElementById("verify");
-    const verified = document.getElementById("verified");
-    verify.style.display = "none";
-    let inProgress = true;
-    loader.style.display = "block";
-    setTimeout(() => {
-        inProgress = false;
-        loader.style.display = "none";
-        verified.style.display = 'block';
-    }, 1500);
-}
-function clearForm() {
-    console.log('clearForm');
-}
-function openPopUp() {
-    const window = document.getElementById("popUp");
-    window.style.display = "block";
-}
-function closePopUp() {
-    const window = document.getElementById("popUp");
-    window.style.display = "none";
-    const edit = document.getElementById("popUpEdit");
-    edit.style.display = "none";
-}
-function openEdit() {
-    const window = document.getElementById("popUpEdit");
-    window.style.display = "block";
-}
 function tab(panel) {
     const element = document.getElementById(panel);
     const tabList = element === null || element === void 0 ? void 0 : element.querySelector('[role="tablist"]');
@@ -91,5 +61,4 @@ function tab(panel) {
     tabList === null || tabList === void 0 ? void 0 : tabList.addEventListener("keydown", keydownFocus);
 }
 tab("panel");
-console.log('hello');
-//# sourceMappingURL=script.js.map
+//# sourceMappingURL=panel.js.map

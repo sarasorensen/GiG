@@ -7,66 +7,259 @@
 
     <link rel="stylesheet" href="./styles/main.css" />
     <link rel="icon" href="./favicon.ico" type="image/x-icon" />
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <title>Sara Sørensen Address Book</title>
   </head>
+
   <body>
     <main>
       <h1>Address Book</h1>
 
-      <div id="navigation">
-        <ul class="nav-list">
-          <li id="js-show-all">Show all Contacts</li>
-          <li id="js-search">Search</li>
-          <li id="js-add-new">Add New Contact</li>
+      <div id="panel">
+        <ul class="nav-list" role="tablist">
+          <li
+            role="tab"
+            aria-controls="panel1"
+            aria-selected="true"
+            tabindex="0"
+          >
+            All contacts
+          </li>
+
+          <li
+            role="tab"
+            aria-controls="panel2"
+            aria-selected="false"
+            tabindex="-1"
+          >
+          Modify contact(s)
+          </li>
         </ul>
+
+        <div
+          id="panel1"
+          class="panel"
+          role="tabpanel"
+          aria-hidden="true"
+          tabindex="0"
+        >
+          <h2>All contacts</h2>
+          <form id="search" action="#">
+            <div id="results"></div>
+
+            <input type="submit" value="Submit" class="btn" />
+          </form>
+        </div>
+        <div
+          id="panel2"
+          class="panel"
+          role="tabpanel"
+          aria-hidden="false"
+          tabindex="0"
+        >
+          <form id="contact">
+            <h2>Modify contact(s)</h2>
+
+            <section>
+              <h3>+ Add contact</h3>
+              <div class="input-group">
+                <input
+                  type="text"
+                  required="true"
+                  name="firstName"
+                  id="firstName"
+                />
+                <label for="firstName"> First name </label>
+              </div>
+              <div class="input-group">
+                <input
+                  type="text"
+                  required="true"
+                  name="lastName"
+                  id="lastName"
+                />
+                <label for="lastName"> Last name </label>
+              </div>
+              <div class="input-group">
+                <input type="text" required="true" name="email" id="email" />
+                <label for="email"> E-mail </label>
+              </div>
+
+              <div class="input-group">
+                <select name="country" id="country" required="true">
+                  <option value="Norway">Norway</option>
+                </select>
+                <label for="country">Country</label>
+              </div>
+              <div class="wrap__buttons">
+                <button class="btn btn__neutral" onClick="clearForm()">
+                    <i class="fa fa-close"></i> Cancel
+                  </button>
+              <input type="submit" value="+ Add contact" class="btn" />
+              </div>
+            </section>
+            <section>
+              <h3><i class="fa fa-trash-o"></i> Delete contact</h3>
+              <table>
+                <tr>
+                  <th>Name</th>
+                  <th>Last name</th>
+                  <th>E-mail</th>
+                  <th>Country</th>
+                  <th>Delete</th>
+                </tr>
+                <tr>
+                  <td>Sara 1</td>
+                  <td>9122334455</td>
+                  <td>lala@hotmail.com</td>
+                  <td>4316, Germany</td>
+                  <td onClick="openPopUp()"><i class="fa fa-trash-o"></i></td>
+                </tr>
+                <tr>
+                  <td>Sara 2</td>
+                  <td>9122334455</td>
+                  <td>lala@hotmail.com</td>
+                  <td>4318, Mexico</td>
+                  <td onClick="openPopUp()"><i class="fa fa-trash-o"></i></td>
+                </tr>
+                <section class="popup" id="popUp" onClick="closePopUp()">
+                  <div class="popup__content" @click.stop>
+                    <i
+                      onClick="closePopUp()"
+                      class="fa fa-close popup__content--close"
+                    ></i>
+
+                    <div id="verify">
+                      <h2>Are you sure?</h2>
+                      <p>
+                        Do you really want to delete /contact name/ ? This
+                        cannot be undone.
+                      </p>
+                    </div>
+
+                    <div id="verified">
+                      <h2>Contact deleted <i class="fa fa-check"></i></h2>
+                      <div class="wrap__buttons">
+                        <button class="btn" onClick="closePopUp()">
+                          Close
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="loader" id="loader"></div>
+
+                    <div class="wrap__buttons">
+                      <button class="btn btn__neutral" onClick="closePopUp()">
+                        <i class="fa fa-close"></i> Cancel
+                      </button>
+                      <button class="btn" onClick="deleteContact()">
+                        <i class="fa fa-trash-o"></i> Delete
+                      </button>
+                    </div>
+                    <hr />
+                  </div>
+                </section>
+              </table>
+            </section>
+            <section>
+              <h3><i class="fa fa-gear"></i> Edit contact</h3>
+              <table>
+                <tr>
+                  <th>Name</th>
+                  <th>Last name</th>
+                  <th>E-mail</th>
+                  <th>Country</th>
+                  <th>Edit</th>
+                </tr>
+                <tr>
+                  <td>Sara 1</td>
+                  <td>9122334455</td>
+                  <td>lala@hotmail.com</td>
+                  <td>4316, Germany</td>
+                  <td onClick="openEdit()"><i class="fa fa-gear"></i></td>
+                </tr>
+                <tr>
+                  <td>Sara 2</td>
+                  <td>9122334455</td>
+                  <td>lala@hotmail.com</td>
+                  <td>4318, Mexico</td>
+                  <td onClick="openEdit()"><i class="fa fa-gear"></i></td>
+                </tr>
+                <section class="popup" id="popUpEdit" onClick="closePopUp()">
+                  <div class="popup__content" @click.stop>
+                    <i
+                      onClick="closePopUp()"
+                      class="fa fa-close popup__content--close"
+                    ></i>
+
+                    <section id="verify">
+                      <h3>Editing /contact name/</h3>
+                      <div class="input-group">
+                        <input
+                          type="text"
+                          required="true"
+                          name="firstName"
+                          id="firstName"
+                        />
+                        <label for="firstName"> First name </label>
+                      </div>
+                      <div class="input-group">
+                        <input
+                          type="text"
+                          required="true"
+                          name="lastName"
+                          id="lastName"
+                        />
+                        <label for="lastName"> Last name </label>
+                      </div>
+                      <div class="input-group">
+                        <input
+                          type="text"
+                          required="true"
+                          name="email"
+                          id="email"
+                        />
+                        <label for="email"> E-mail </label>
+                      </div>
+
+                      <div class="input-group">
+                        <select name="country" id="country" required="true">
+                          <option value="Norway">Norway</option>
+                        </select>
+                        <label for="country">Country</label>
+                      </div>
+                    </section>
+
+                    <div id="verified">
+                        <h2>Contact edited <i class="fa fa-check"></i></h2>
+                        <div class="wrap__buttons">
+                          <button class="btn" onClick="closePopUp()">
+                            Close
+                          </button>
+                        </div>
+                      </div>
+
+                    <div class="loader" id="loader"></div>
+
+                    <div class="wrap__buttons">
+                      <button class="btn btn__neutral" onClick="closePopUp()">
+                        <i class="fa fa-close"></i> Cancel
+                      </button>
+                      <button class="btn" onClick="deleteContact()">
+                        <i class="fa fa-arrow"></i> Save
+                      </button>
+                    </div>
+                    <hr />
+                  </div>
+                </section>
+              </table>
+            </section>
+          </form>
+        </div>
       </div>
-      <div id="search-panel" class="panel">
-        <h2>Search Contacts</h2>
-        <form id="search" action="#">
-          <div id="results"></div>
-
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
-      <div id="contact-panel" class="panel">
-        <form id="contact" action="#">
-          <h2>+ New contact</h2>
-
-          <div class="input-group">
-            <input
-              type="text"
-              required="true"
-              name="firstName"
-              id="firstName"
-            />
-            <label for="firstName"> First name </label>
-          </div>
-          <div class="input-group">
-            <input type="text" required="true" name="lastName" id="lastName" />
-            <label for="lastName"> Last name </label>
-          </div>
-          <div class="input-group">
-            <input type="email" required="true" name="email" id="email" />
-            <label for="email"> E-mail </label>
-          </div>
-
-          <div class="input-group">
-            <select name="country" id="country" required="true">
-              <option value="volvo">Volvo</option>
-              <option value="saab">Saab</option>
-              <option value="mercedes">Mercedes</option>
-              <option value="audi">Audi</option>
-            </select>
-            <label for="country">Country</label>
-          </div>
-
-          <div>
-            <input type="submit" value="Submit" />
-          </div>
-        </form>
-      </div>
-      <div id="show-panel" class="panel"></div>
     </main>
     <script src="/dist/script.js"></script>
   </body>
